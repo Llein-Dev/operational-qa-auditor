@@ -1,43 +1,25 @@
-# Contributing to Operational QA Auditor
+# Contributing
 
-Thank you for your interest in contributing to **Operational QA Auditor**! 
+Thanks for helping improve Operational QA Auditor. Contributions should make audits more useful, safe, reproducible, and honest about evidence and coverage.
 
-Our goal is to build the definitive, open-source operational quality assurance cheatsheet and mental framework for AI coding agents and engineering teams worldwide.
+## Good contributions
 
----
+- Domain playbooks in `playbooks/` (for example payments, healthcare, e-commerce, multi-tenancy, or IoT), with explicit assumptions and safety boundaries.
+- Failure-mode patterns that explain symptom, evidence to collect, applicable checks, and likely remediation.
+- Small helper tools for repository inventory, test-environment preflight, or detection of misleading hardcoded metrics.
+- Clarifications that reduce overclaiming or distinguish universal principles from project-specific policy.
 
-## 🎯 Contribution Areas & Community Goals
+Domain rules must be presented as conditional guidance, not requirements for unrelated systems. Avoid encoding a compliance claim as a pass/fail rule without a defined authoritative standard and scope.
 
-We invite contributions across the following core areas:
+## Pull request guidance
 
-### 1. Adding Domain-Specific Runbooks (`references/` or `playbooks/`)
-Different software industries have unique failure modes. You can contribute specialized audit playbooks for:
-* **Fintech & Payments:** Handling transaction idempotency, floating-point rounding errors, webhook replay attacks.
-* **Healthcare & Life Sciences:** PHI/PII data obfuscation, audit trail permanence, compliance logging.
-* **Smart Sites & Industrial IoT:** Stream disconnect recovery, hardware command validation, watchdog/heartbeat checking.
-* **SaaS & Multi-Tenancy:** Cross-tenant data isolation, quota enforcement, subscription tier boundary testing.
+1. Keep instructions concise, actionable, and evidence-based.
+2. State which projects or situations a new check applies to and what prerequisites it needs.
+3. Do not assume universal routes, environment variables, database engines, frameworks, audit-log designs, or transaction architecture.
+4. For scripts, document side effects and default to read-only or dry-run behavior. Never target production by default.
+5. Include examples that use synthetic data and do not expose credentials or personal data.
+6. Review Markdown rendering and links. If behavior changes, explain how it was checked; do not claim cross-agent compatibility without trying the supported setup.
 
-### 2. Enhancing Failure Mode Detection Patterns
-If you find edge-cases that AI agents commonly overlook (e.g., subtle hydration mismatches, Radix UI empty string panics, database foreign key orphanings), submit a pattern describing:
-* The symptom & why standard testing misses it.
-* The inspection checklist step to catch it.
-* The recommended remediation pattern.
+## Code of conduct
 
-### 3. Tooling & Helper Scripts (`scripts/`)
-Help automate the pre-audit checks:
-* Scripts to detect hardcoded demo indicators in frontend code.
-* Environment safety checkers (ensuring non-production DB URLs before running tests).
-
----
-
-## 📋 Pull Request Guidelines
-
-1. **Keep it Universal & Concise:** Instructions must be actionable for LLMs without token bloat. Avoid generic programming advice; focus strictly on auditing, edge-cases, and failure modes.
-2. **Use Clear Markdown Hierarchy:** Maintain clean GitHub-flavored markdown with consistent alerts, tables, and code snippets.
-3. **Test with AI Agents:** Before submitting changes to `SKILL.md`, test it in a live conversation with an AI agent (Antigravity, Claude, Cursor) to ensure the agent understands and reliably follows the instructions.
-
----
-
-## ⚖️ Code of Conduct
-
-Be welcoming, respectful, and constructive. We are here to raise the bar for software reliability and AI engineering excellence.
+Be respectful and constructive. Focus discussion on improving reliability and clarity for users and contributors.

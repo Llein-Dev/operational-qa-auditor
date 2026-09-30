@@ -1,89 +1,51 @@
-# 🛡️ Operational QA Auditor (Open-Source Skill for AI Agents)
+# Operational QA Auditor
 
-> **Universal Operational Quality Assurance & Deep Codebase Auditing Workflow for AI Coding Assistants & Engineering Teams.**
+An evidence-driven, framework-agnostic workflow for auditing user interfaces, APIs, operational journeys, data integrity, and release readiness. It helps AI agents and engineering teams produce reproducible findings without inventing expected behavior or overstating coverage.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Compatible with Antigravity](https://img.shields.io/badge/Compatible-Google%20Antigravity-orange.svg)](#)
-[![Compatible with Cursor & Claude](https://img.shields.io/badge/Compatible-Cursor%20%7C%20Claude%20%7C%20Copilot-purple.svg)](#)
+## What it covers
 
----
+- **Scoped horizontal checks:** inspect the relevant pages, endpoints, components, or jobs using only applicable checks.
+- **Persona workflows:** follow meaningful user journeys and exception paths through their state changes.
+- **Root-cause tracing:** connect UI, API, domain logic, serialization, persistence, and integrations when evidence calls for it.
+- **Safe, honest reporting:** verify environment before risky actions; distinguish Pass, Fail, Blocked, Not tested, and Business Observation.
+- **Release readiness:** optional phase for requests that include build, packaging, configuration, or deployment assessment.
+- **Risk-selected techniques:** boundary and state-transition checks, contract testing, pairwise sampling, and safe fault/concurrency probes where relevant.
+- **Architecture-aware inspection:** adapt checks for monoliths, services, event-driven flows, jobs, caches, and external integrations based on repository evidence.
 
-## 💡 The Problem This Skill Solves
+The full instructions are in [`SKILL.md`](SKILL.md). Industry-specific playbooks can extend the core without making every domain check mandatory for every project.
 
-When AI coding agents (Claude, Cursor, Copilot, Antigravity) are asked to test or review a software project, they frequently make critical mistakes:
-1. **Shallow Testing:** They check if the page loads (HTTP 200) and immediately declare "All features working perfectly!", ignoring subtle database integrity issues, broken foreign keys, and empty state crashes.
-2. **Accepting Fake / Hardcoded Data:** When telemetry or metrics are hardcoded (e.g. `uptime 99.98%`, `+12% traffic` on an empty database), standard agents don't notice or call it out.
-3. **Endangering Production Environments:** Testing directly on live databases or triggering external actuators without sandbox isolation.
-4. **Ignoring Cascading Transaction Failures:** Missing bugs where Step 1 creates a record but Step 2 fails, leaving orphaned corrupted data without rollback.
+Keep architecture-specific or regulated-domain detail in focused playbooks under `playbooks/`; the core skill treats patterns as conditional prompts, not required designs.
 
-**Operational QA Auditor** is an open-source, prompt-engineered skill and operational cheatsheet that teaches AI agents to think, inspect, debug, and report like **Principal QA Engineers and Reliability Architects**.
+## Install
 
----
+Clone this repository into the agent's supported skills directory. For Antigravity, for example:
 
-## 🧭 The 4 Pillars of the Auditor Mindset
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                   OPERATIONAL QA AUDITOR MINDSET                       │
-├────────────────────┬────────────────────┬──────────────────────────────┤
-│ 1. Zero Production │ 2. Two-Dimensional │ 3. Deep Root-Cause           │
-│    Impact          │    Audit Matrix    │    Tracing                   │
-│                    │                    │                              │
-│ • Isolated DB only │ • Horizontal:      │ • Beyond HTTP 500            │
-│ • Stubs for IoT/   │   24-point route   │ • Trace SQL constraints & FK │
-│   Hardware/Webhooks│   & UI/UX audit    │ • Trace Go/JSON serialization│
-│ • No side-effect   │ • Vertical:        │ • Catch unhandled React nulls│
-│   bleed-through    │   Real Persona E2E │ • Radical Data Honesty (No   │
-│                    │   workflows        │   fake hardcoded metrics)    │
-└────────────────────┴────────────────────┴──────────────────────────────┘
-```
-
----
-
-## 🚀 Quickstart & Installation
-
-### Option 1: Using with Google Antigravity
-Clone directly into your project's `.agents/skills/` directory:
 ```bash
 git clone https://github.com/llein-dev/operational-qa-auditor.git .agents/skills/operational-qa-auditor
 ```
-In your Antigravity chat, simply ask:
-> *"Act as an operational-qa-auditor and audit the authentication and payment flows."*
 
-### Option 2: Using with Cursor IDE
-Create `.cursorrules` or add to `.cursor/rules/`:
-```markdown
-# Include the instructions from SKILL.md in your Cursor rules file.
-```
+For other tools, follow their current custom-instructions or skills documentation and include `SKILL.md`. The Cursor and Claude examples below are minimal manual approaches; support and discovery behavior can differ by product/version.
 
-### Option 3: Using with Claude Code / Claude Desktop / Custom Agents
-Attach or paste `SKILL.md` into your project's custom instructions or system prompt.
+### Cursor
 
----
+Add the contents or a reference to `SKILL.md` in a project rule under `.cursor/rules/`, using the rule format supported by your installed Cursor version.
 
-## 🎯 Community Contribution Goals (Roadmap)
+### Claude Code or custom agents
 
-We welcome the global developer and QA community to expand this universal skill! Here are our primary community objectives:
+Add `SKILL.md` to the project's supported instructions/skills location or provide it as context. Verify the tool actually loads the file before relying on it.
 
-- [x] **Universal Enterprise Core (`SKILL.md`):** Complete two-dimensional horizontal/vertical audit framework.
-- [ ] **Domain-Specific Audit Playbooks (`playbooks/`):**
-  - [ ] **Fintech & Banking:** Double-entry ledger audit, idempotency keys, currency precision.
-  - [ ] **E-Commerce & Logistics:** Cart abandonment edge-cases, warehouse inventory concurrency locks, discount stacking.
-  - [ ] **Healthcare & HIPAA:** PII/PHI data leakage prevention, access audit trails, encryption at rest.
-  - [ ] **IoT & Smart Site Systems:** Hardware simulator harnesses, reconnect resilience, barrier/gate fail-safe states.
-- [ ] **Automated Test Runners & Scripts (`scripts/`):**
-  - [ ] Script to scan repositories for hardcoded fake metrics.
-  - [ ] Script to verify database isolation and preflight safety flags.
+## Use
 
----
+Ask for a scoped audit, for example:
 
-## 🤝 Contributing
+> Audit the password reset workflow against the repository's documented requirements. Use only the local test environment, and report what you verified, what failed, and what was blocked.
 
-Contributions are warmly welcomed! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on code of conduct and the pull request submission process.
+The auditor should discover the project's actual routes, commands, environment configuration, and contracts. It must not assume that example commands, variables, audit logs, CRUD operations, or industry rules apply universally.
 
----
+## Contributing
 
-## 📄 License
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution areas and review guidance.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## License
+
+MIT. See [`LICENSE`](LICENSE).
