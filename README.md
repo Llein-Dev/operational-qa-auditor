@@ -44,10 +44,9 @@ When AI coding agents (Claude, Cursor, Copilot, Antigravity) are asked to test o
 ## 🚀 Quickstart & Installation
 
 ### Option 1: Using with Google Antigravity
-Clone or copy this folder into your project's `.agents/skills/` directory:
+Clone directly into your project's `.agents/skills/` directory:
 ```bash
-mkdir -p .agents/skills/operational-qa-auditor
-# Copy SKILL.md into this folder
+git clone https://github.com/llein-dev/operational-qa-auditor.git .agents/skills/operational-qa-auditor
 ```
 In your Antigravity chat, simply ask:
 > *"Act as an operational-qa-auditor and audit the authentication and payment flows."*
